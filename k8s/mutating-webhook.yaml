@@ -1,0 +1,32 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: seal-automate
+  labels:
+    app: seal-automate
+webhooks:
+- name: seal-automate.default.svc
+  admissionReviewVersions:
+  - v1
+  - v1beta1
+  sideEffects: None
+  rules:
+  - apiGroups:
+    - ""
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    resources:
+    - secrets
+  clientConfig:
+    service:
+      name: seal-automate
+      namespace: default
+      path: /mutate
+  failurePolicy: Fail
+  namespaceSelector:
+    matchLabels:
+      # 원하는 네임스페이스에만 적용하려면 여기에 레이블 추가
+      # sapcy-sealed-secret: "enabled"
+

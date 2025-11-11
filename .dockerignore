@@ -1,0 +1,21 @@
+# Binaries
+main
+sapcy_sealed_secret_automate
+
+# Git
+.git
+.gitignore
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# Documentation
+README.md
+*.md
+
+# Kubernetes manifests (optional, can be included)
+# k8s/
+
