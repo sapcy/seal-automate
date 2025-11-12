@@ -1,20 +1,26 @@
 # Build stage
 FROM golang:1.23-alpine AS builder
 
+# Go 환경 변수 설정
+ENV CGO_ENABLED=0
+ENV GOOS=linux
+ENV GOARCH=amd64
+
 WORKDIR /app
 
 # Copy go mod files
 COPY go.mod go.sum ./
 
-# Download dependencies
-RUN go mod download
+# Download dependencies and verify
+RUN go mod download && \
+    go mod verify
 
 # Copy source code
 COPY main.go ./
 
 # Build the application
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
-    go build \
+# 에러 발생 시 더 명확한 메시지를 위해 단계별 실행
+RUN go build \
     -ldflags="-s -w" \
     -trimpath \
     -o seal-automate main.go
