@@ -25,8 +25,9 @@ webhooks:
       namespace: default
       path: /mutate
   failurePolicy: Fail
-  namespaceSelector:
-    matchLabels:
-      # 원하는 네임스페이스에만 적용하려면 여기에 레이블 추가
-      # sapcy-sealed-secret: "enabled"
+  # namespaceSelector를 비우면 모든 네임스페이스에 적용됩니다
+  # 특정 네임스페이스에만 적용하려면 아래 주석을 해제하세요
+  # namespaceSelector:
+  #   matchLabels:
+  #     sapcy-sealed-secret: "enabled"
 
